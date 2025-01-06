@@ -1,0 +1,126 @@
+.review-card {
+  background-color: #f8f9fa; /* Light grey background */
+  border-radius: 8px;
+  padding: 1rem; /* Smaller padding */
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem; /* Smaller text */
+}
+
+.comment-section {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+
+.overall-rating-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.overall-rating-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Hide overall rating badge on mobile screens */
+@media (max-width: 768px) {
+  .overall-rating-container {
+    display: none;
+  }
+}
+
+.comment-text {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.ratings-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ratings-column {
+  flex: 1;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.icon-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.category-icon {
+  font-size: 1.2rem; /* Smaller icon size */
+}
+
+.category-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.rating-bar-container {
+  flex-grow: 1;
+  margin: 0 0.8rem;
+  background-color: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rating-bar-value {
+  height: 15px; /* Reduced bar height */
+  border-radius: 5px 0 0 5px;
+}
+
+.rating-text {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.feedback-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.flag {
+  cursor: pointer;
+  color: #ef4444;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .ratings-container {
+    flex-direction: column;
+  }
+
+  .rating-row {
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}

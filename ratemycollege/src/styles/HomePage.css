@@ -1,0 +1,84 @@
+.home-container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .hero-section {
+    position: relative;
+    background-color: #004080; /* Simple color instead of background image */
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .overlay {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: white;
+  }
+  
+  .search-bar {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .input-field {
+    background-color: white;
+    width: 300px;
+  }
+  
+  .search-button {
+    padding: 0.6rem 1.5rem;
+  }
+  
+  .secondary-search {
+    margin-top: 1rem;
+    color: white;
+  }
+  
+  .features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 0;
+  }
+  
+  .feature-card {
+    width: 30%;
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature-card p {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .footer-section {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #f1f1f1;
+    margin-top: 2rem;
+  }
+  

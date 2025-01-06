@@ -1,0 +1,45 @@
+.rating-bar-container {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  background-color: transparent; /* Transparent background */
+}
+
+.rating-bar {
+  display: flex;
+  gap: 0.4rem; /* Ensure small gap between each bar */
+}
+
+.bar-segment {
+  flex: 1;
+  height: 25px;
+  border-radius: 8px;
+  background-color: transparent; /* Light grey with transparency */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid rgba(2, 1, 1, 0.5); /* Light border for contrast */
+}
+
+.bar-segment.filled {
+  background-color: inherit; /* Inherit the background color */
+}
+
+.bar-segment:hover {
+  opacity: 0.8; /* Slight hover effect */
+}
+
+.center-label {
+  text-align: center;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.center-label.visible {
+  opacity: 1;
+}
+
+.selected-value {
+  font-size: 0.9rem;
+  color: #555;
+}

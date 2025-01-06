@@ -1,0 +1,72 @@
+.university-header {
+  padding: 1.5rem 1rem;
+  background-color: white;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.location {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.university-name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rate-button,
+.compare-button {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.rate-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.compare-button {
+  background-color: white;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+}
+
+.view-professors-link {
+  font-size: 1rem;
+  color: #2563eb;
+  text-decoration: underline;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .header-content {
+    justify-content: center;
+  }
+
+  .header-buttons {
+    max-width: 100%;
+  }
+
+  .rate-button,
+  .compare-button {
+    padding: 0.6rem 2rem;
+  }
+}
