@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchUniversities } from '../services/api';
+import { fetchCollegeById, fetchReviewsByCollegeId } from '../services/api'; // Import API functions
 import UniversityHeader from '../components/UniversityHeader';
 import ReviewForm from '../components/ReviewForm';
 import ReviewCard from '../components/ReviewCard';
@@ -32,7 +32,7 @@ const categoryIcons = {
   clubs: <FaTrophy />,
   social: <FaUserFriends />,
   opportunities: <FaNetworkWired />,
-  location: <FaMapMarkerAlt />,
+  locationRating: <FaMapMarkerAlt />,
   internet: <FaWifi />,
   food: <FaUtensils />,
 };
@@ -41,92 +41,34 @@ const UniversityProfile = () => {
   const { id } = useParams();
   const [university, setUniversity] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [cumulativeOverall, setCumulativeOverall] = useState(0);
-  const [categoryAverages, setCategoryAverages] = useState({});
   const [visibleReviewsCount, setVisibleReviewsCount] = useState(4);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showAllRatings, setShowAllRatings] = useState(false);
+  const [thankYouMessageVisible, setThankYouMessageVisible] = useState(false); // New state
 
+  // **Fetch university data and reviews**
   useEffect(() => {
     const getUniversityData = async () => {
-      const data = await fetchUniversities();
-      const selectedUniversity = data.find((u) => u.id === parseInt(id));
-      setUniversity(selectedUniversity);
-      setReviews(selectedUniversity?.reviews || []);
+      try {
+        const universityData = await fetchCollegeById(id); // Fetch university details
+        const reviewsData = await fetchReviewsByCollegeId(id); // Fetch reviews for the university
+        setUniversity(universityData);
+        setReviews(reviewsData);
+      } catch (error) {
+        setUniversity(null);
+      }
     };
 
     getUniversityData();
   }, [id]);
 
-  useEffect(() => {
-    if (reviews.length > 0) {
-      const overallSum = reviews.reduce((sum, review) => sum + review.overallrating, 0);
-      const overallAverage = overallSum / reviews.length;
-      setCumulativeOverall(overallAverage.toFixed(1));
-
-      const categories = [
-        'reputation',
-        'safety',
-        'happiness',
-        'facilities',
-        'clubs',
-        'social',
-        'opportunities',
-        'location',
-        'internet',
-        'food',
-      ];
-      const categorySums = categories.reduce((acc, category) => {
-        acc[category] = reviews.reduce((sum, review) => sum + (parseFloat(review[category]) || 0), 0);
-        return acc;
-      }, {});
-
-      const categoryAverages = categories.reduce((acc, category) => {
-        acc[category] = reviews.length > 0 ? (categorySums[category] / reviews.length).toFixed(1) : 'N/A';
-        return acc;
-      }, {});
-
-      setCategoryAverages(categoryAverages);
-    } else {
-      setCumulativeOverall(0);
-      setCategoryAverages({});
-    }
-  }, [reviews]);
 
   const handleSeeMore = () => {
     setVisibleReviewsCount((prevCount) => prevCount + 4);
   };
 
   const handleRateClick = () => {
-    setShowReviewForm((prev) => !prev);
-  };
-
-  const handleReviewSubmit = (review) => {
-    const formattedReview = Object.fromEntries(
-      Object.entries(review).map(([key, value]) => [key.toLowerCase(), value])
-    );
-
-    const requiredCategories = [
-      'reputation',
-      'location',
-      'opportunities',
-      'facilities',
-      'internet',
-      'food',
-      'clubs',
-      'social',
-      'happiness',
-      'safety',
-    ];
-
-    const missingCategories = requiredCategories.filter((category) => !formattedReview[category]);
-    if (missingCategories.length > 0) {
-      alert(`Please fill in the following categories: ${missingCategories.join(', ')}`);
-      return;
-    }
-
-    setReviews((prevReviews) => [...prevReviews, formattedReview]);
-    setShowReviewForm(false);
+    setShowReviewForm(true);
   };
 
   const toggleRatingsView = () => {
@@ -135,39 +77,42 @@ const UniversityProfile = () => {
 
   if (!university) return <p>Loading...</p>;
 
-  const highestRated = Object.entries(categoryAverages).reduce(
-    (max, [key, value]) => (parseFloat(value) > parseFloat(max.value) ? { category: key, value } : max),
-    { category: '', value: 0 }
-  );
+  const highestRated = Object.entries(university)
+    .filter(([key]) =>
+      ['reputation', 'safety', 'happiness', 'facilities', 'clubs', 'social', 'opportunities', 'locationRating', 'internet', 'food'].includes(key)
+    )
+    .reduce((max, [key, value]) => (value > max.value ? { category: key, value } : max), { category: '', value: 0 });
 
-  const lowestRated = Object.entries(categoryAverages).reduce(
-    (min, [key, value]) => (parseFloat(value) < parseFloat(min.value) ? { category: key, value } : min),
-    { category: '', value: 5 }
-  );
+  const lowestRated = Object.entries(university)
+    .filter(([key]) =>
+      ['reputation', 'safety', 'happiness', 'facilities', 'clubs', 'social', 'opportunities', 'locationRating', 'internet', 'food'].includes(key)
+    )
+    .reduce((min, [key, value]) => (value < min.value ? { category: key, value } : min), { category: '', value: 5 });
 
   return (
     <div className="university-profile">
       <UniversityHeader
+        selectedUniversityData={university}
         universityName={university.name}
         location={university.location}
-        overallRating={parseFloat(cumulativeOverall)}
+        overallRating={university.overallRating}
         onRateClick={handleRateClick}
+        totalReviews={university.totalReviews}
       />
 
       <div className="profile-container">
-      <div className="overall-rating-container">
-  <span
-    className="overall-rating-badge"
-    style={{
-      backgroundColor: getColorForRating(parseFloat(cumulativeOverall)),
-      color: '#fff',
-    }}
-  >
-    {cumulativeOverall}
-  </span>
-  <p className="overall-rating-label">Overall Quality</p>
-</div>
-
+        <div className="overall-rating-container">
+          <span
+            className="overall-rating-badge"
+            style={{
+              backgroundColor: getColorForRating(university.overallRating),
+              color: '#fff',
+            }}
+          >
+            {university.overallRating.toFixed(1)}
+          </span>
+          <p className="overall-rating-label">Overall Quality</p>
+        </div>
 
         <h3>Cumulative Ratings</h3>
         <div className="overall-section">
@@ -179,9 +124,9 @@ const UniversityProfile = () => {
                   {categoryIcons[highestRated.category]} <span>{highestRated.category.toUpperCase()}</span>
                   <span
                     className="rating-badge"
-                    style={{ backgroundColor: getColorForRating(parseFloat(highestRated.value)) }}
+                    style={{ backgroundColor: getColorForRating(highestRated.value) }}
                   >
-                    {highestRated.value} stars
+                    {highestRated.value.toFixed(1)} stars
                   </span>
                 </div>
               </div>
@@ -191,9 +136,9 @@ const UniversityProfile = () => {
                   {categoryIcons[lowestRated.category]} <span>{lowestRated.category.toUpperCase()}</span>
                   <span
                     className="rating-badge"
-                    style={{ backgroundColor: getColorForRating(parseFloat(lowestRated.value)) }}
+                    style={{ backgroundColor: getColorForRating(lowestRated.value) }}
                   >
-                    {lowestRated.value} stars
+                    {lowestRated.value.toFixed(1)} stars
                   </span>
                 </div>
               </div>
@@ -203,25 +148,47 @@ const UniversityProfile = () => {
             </button>
           </div>
         </div>
+
         {showAllRatings && (
           <div className="ratings-wrapper">
-            {Object.entries(categoryAverages).map(([category, average]) => (
-              <div key={category} className="cumulative-rating">
-                <span className="category-name">
-                  {categoryIcons[category]} {category.toUpperCase()}:
-                </span>
-                <span
-                  className="rating-badge"
-                  style={{ backgroundColor: getColorForRating(parseFloat(average)) }}
-                >
-                  {average} stars
-                </span>
-              </div>
-            ))}
+            {Object.entries(university)
+              .filter(([key]) =>
+                ['reputation', 'safety', 'happiness', 'facilities', 'clubs', 'social', 'opportunities', 'locationRating', 'internet', 'food'].includes(key)
+              )
+              .map(([category, average]) => (
+                <div key={category} className="cumulative-rating">
+                  <span className="category-name">
+                    {categoryIcons[category]} {category.toUpperCase()}:
+                  </span>
+                  <span
+                    className="rating-badge"
+                    style={{ backgroundColor: getColorForRating(average) }}
+                  >
+                    {average.toFixed(1)} stars
+                  </span>
+                </div>
+              ))}
           </div>
         )}
 
-        {showReviewForm && <ReviewForm universityId={university.id} onReviewSubmit={handleReviewSubmit} />}
+        {thankYouMessageVisible && (
+          <div className="thank-you-message">
+            <h3>🎉 Thank you for your review!</h3>
+            <p>Your feedback helps others make informed decisions.</p>
+          </div>
+        )}
+
+        {showReviewForm && (
+          <ReviewForm
+            universityId={university.id}
+            onClose={() => {
+              setShowReviewForm(false); // Hide the form
+              setThankYouMessageVisible(true); // Show thank-you message
+              setTimeout(() => setThankYouMessageVisible(false), 4000); // Hide message after 4 seconds
+            }}
+            
+          />
+        )}
 
         <h2>Reviews</h2>
         {reviews.length === 0 ? (

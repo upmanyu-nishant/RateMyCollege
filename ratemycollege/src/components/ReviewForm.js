@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/ReviewForm.css';
 import RatingBar from './RatingBar';
+import { submitReview } from '../services/api'; // Import the API function
 
-const ReviewForm = ({ universityId, onReviewSubmit }) => {
-  const categories = ['Reputation', 'Location', 'Opportunities', 'Facilities', 'Internet', 'Food', 'Clubs', 'Social', 'Happiness', 'Safety'];
+const ReviewForm = ({ universityId, onClose }) => {
+  const categories = [
+    'reputation',
+    'locationRating',
+    'opportunities',
+    'facilities',
+    'internet',
+    'food',
+    'clubs',
+    'social',
+    'happiness',
+    'safety',
+  ];
   const [ratings, setRatings] = useState({});
   const [comment, setComment] = useState('');
+  const [emailId, setEmail] = useState(''); // For user email
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // Load the user's email ID from localStorage on component mount
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.email) {
+      setEmail(user.email);
+    }
+  }, []);
 
   const handleRatingChange = (category, value) => {
     setRatings((prevRatings) => ({
@@ -15,9 +37,9 @@ const ReviewForm = ({ universityId, onReviewSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Check for missing ratings
     const missingRatings = categories.filter((category) => !(ratings[category]));
     if (missingRatings.length > 0) {
       setErrorMessage(`Please provide a rating for all categories.`);
@@ -27,29 +49,42 @@ const ReviewForm = ({ universityId, onReviewSubmit }) => {
     const overallRating = Object.values(ratings).reduce((sum, val) => sum + val, 0) / categories.length;
 
     const reviewData = {
-      universityId,
-      ...ratings,
-      overallrating: parseFloat(overallRating.toFixed(1)),
+      collegeId: universityId, // Backend expects collegeId
+      emailId, // Include user email
+      overallRating: parseFloat(overallRating.toFixed(1)),
       comment: comment.trim() || 'No comment provided',
-      date: new Date().toISOString(),
+      approved: true,
+      date: new Date().toISOString(), // Automatically add the date
+      ...ratings, // Include individual category ratings
     };
 
-    console.log('Review Submitted:', reviewData);
-    onReviewSubmit(reviewData);
-    setRatings({});
-    setComment('');
-    setErrorMessage('');
+    try {
+      await submitReview(universityId, reviewData); // Send review via API
+      setSuccessMessage('Review submitted successfully!');
+      setErrorMessage('');
+      setRatings({});
+      setComment('');
+
+      // Call the `onClose` prop function to hide the form
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      setErrorMessage('Failed to submit review. Please try again.');
+      setSuccessMessage('');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="review-form">
       <h3>Write a Review</h3>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <div className="rating-grid">
         <div className="rating-column">
           {categories.slice(0, 5).map((category) => (
             <div className="rating-row" key={category}>
-              <span className="category-label">{category}</span>
+              <span className="category-label">{category.charAt(0).toUpperCase() + category.slice(1)}</span>
               <div className="rating-bar-container">
                 <RatingBar
                   value={ratings[category] || 0}
@@ -62,7 +97,7 @@ const ReviewForm = ({ universityId, onReviewSubmit }) => {
         <div className="rating-column">
           {categories.slice(5).map((category) => (
             <div className="rating-row" key={category}>
-              <span className="category-label">{category}</span>
+              <span className="category-label">{category.charAt(0).toUpperCase() + category.slice(1)}</span>
               <div className="rating-bar-container">
                 <RatingBar
                   value={ratings[category] || 0}

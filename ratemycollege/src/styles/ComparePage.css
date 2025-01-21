@@ -1,0 +1,234 @@
+.compare-page {
+  padding: 2rem;
+}
+
+.compare-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.reset-all-button {
+  margin: 1rem auto;
+  display: block;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.reset-all-button:hover {
+  background-color: #e60000;
+}
+
+.compare-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: nowrap; /* Keep cards side-by-side */
+}
+
+.university-card {
+  background-color: #f8f8f8;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rating-badge {
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+  border-radius: 8px;
+}
+
+.university-name {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.input-wrapper {
+  margin-top: 1rem;
+  position: relative;
+}
+
+.search-input {
+  width: 90%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.suggestions-container {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  max-height: 200px; /* Restrict the height for scrollability */
+  overflow-y: auto; /* Allow scrolling */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  position: absolute; /* Position as a dropdown */
+  width: 100%; /* Full width relative to the input */
+  z-index: 10; /* Ensure it stays above other elements */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  display: block; /* Stack items vertically */
+  padding: 0.8rem;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  text-align: left; /* Align text to the left */
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #f1f1f1;
+}
+
+.reset-button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  background-color: #004080;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #003366;
+}
+
+.compare-stats {
+  margin-top: 2rem;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.stat-label {
+  flex: 1;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center; /* Center the category name */
+}
+
+.left-progress,
+.right-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 4; /* Ensure both sides take equal space */
+}
+
+.progress-bar-container {
+  flex: 1;
+  background-color: #eee;
+  height: 12px;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  overflow: hidden; /* Ensure the bar doesn't overflow */
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.rating-number {
+  width: 40px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .compare-title {
+    font-size: 2rem;
+  }
+
+  .university-card {
+    width: 280px;
+    padding: 1rem;
+  }
+
+  .rating-badge {
+    padding: 0.8rem;
+  }
+
+  .university-name {
+    font-size: 1.2rem;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+  }
+
+  .stat-row {
+    justify-content: space-evenly;
+  }
+
+  .stat-label,
+  .rating-number {
+    font-size: 0.9rem;
+  }
+
+  .progress-bar {
+    height: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .compare-cards {
+    flex-direction: column;
+    align-items: center;
+    overflow-x: visible; /* Allow proper stacking in smaller screens */
+  }
+
+  .university-card {
+    width: 100%;
+  }
+
+  .stat-row {
+    justify-content: space-between;
+  }
+
+  .stat-label {
+    flex: 1;
+    font-size: 0.85rem;
+  }
+
+  .rating-number {
+    font-size: 0.85rem;
+  }
+
+  .progress-bar {
+    height: 8px;
+  }
+
+  .suggestions-container {
+    max-height: 150px;
+  }
+}

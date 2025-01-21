@@ -1,10 +1,21 @@
 import React from 'react';
 import '../styles/ReviewCard.css';
-import { FaStar, FaMapMarkerAlt, FaBriefcase, FaWifi, FaUtensils, FaUserFriends, FaLaugh, FaShieldAlt, FaBuilding, FaTrophy } from 'react-icons/fa';
+import {
+  FaStar,
+  FaMapMarkerAlt,
+  FaBriefcase,
+  FaWifi,
+  FaUtensils,
+  FaUserFriends,
+  FaLaugh,
+  FaShieldAlt,
+  FaBuilding,
+  FaTrophy,
+} from 'react-icons/fa';
 
 const iconsMap = {
   reputation: <FaStar />,
-  location: <FaMapMarkerAlt />,
+  locationRating: <FaMapMarkerAlt />,
   opportunities: <FaBriefcase />,
   facilities: <FaBuilding />,
   internet: <FaWifi />,
@@ -24,7 +35,7 @@ const getColor = (rating) => {
 const ReviewCard = ({ review }) => {
   const categories = [
     'reputation',
-    'location',
+    'locationRating',
     'opportunities',
     'facilities',
     'internet',
@@ -35,23 +46,17 @@ const ReviewCard = ({ review }) => {
     'safety',
   ];
 
-  const overallRating = review?.overallrating ? review.overallrating.toFixed(1) : 'N/A';
+  const overallRating = review?.overallRating ? review.overallRating.toFixed(1) : 'N/A';
   const formattedDate = review?.date ? new Date(review.date).toLocaleDateString() : 'N/A';
 
   return (
     <div className="review-card">
       <div className="comment-section">
         <div
-          className="overall-rating-badge hide-on-mobile"
+          className="overall-rating-badge"
           style={{
             backgroundColor: getColor(parseFloat(overallRating) || 0),
             color: '#fff',
-            padding: '0.5rem 1rem',
-            borderRadius: '8px',
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '1rem',
           }}
         >
           {overallRating}
@@ -105,11 +110,6 @@ const ReviewCard = ({ review }) => {
 
       <div className="footer">
         <span className="review-date">{formattedDate}</span>
-        <div className="feedback-icons">
-          <span className="helpful">Helpful 👍</span>
-          <span className="not-helpful">Not Helpful 👎</span>
-        </div>
-        <div className="flag">🚩 Report</div>
       </div>
     </div>
   );

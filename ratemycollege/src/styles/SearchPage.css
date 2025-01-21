@@ -1,39 +1,147 @@
-form {
-    display: flex;
-    align-items: center;
+/* Logo Container */
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem; /* Adjusted for better spacing */
+}
+
+.logo-image {
+  max-width: 190px; /* Smaller size for cleaner look */
+  height: auto;
+}
+
+/* Search Page Container */
+.search-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Subtle light grey background for overall page */
+}
+
+/* Search Background */
+.search-background-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80%; /* Full height of the form area */
+  background-image: url('../assets/background.jpg'); /* Add your background image */
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 90%;
+  max-height: 600px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a polished look */
+}
+
+/* Search Content */
+.search-content {
+  background: rgba(255, 255, 255, 0.95); /* Slight transparency for a modern look */
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 500px; /* More compact width for better alignment */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Search Title */
+.search-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #004080; /* Professional dark blue color */
+}
+
+/* Search Form */
+.search-form {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  align-items: center;
+  gap: 1rem; /* Space between fields */
+}
+
+/* Inputs and Button */
+.search-input,
+.search-select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth focus effects */
+}
+
+.search-input:focus,
+.search-select:focus {
+  border-color: #004080;
+  box-shadow: 0px 4px 8px rgba(0, 64, 128, 0.2);
+  outline: none;
+}
+
+.search-button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #003366;
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .search-content {
+    padding: 1.5rem;
   }
-  
-  input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5rem;
+
+  .search-input,
+  .search-select,
+  .search-button {
+    width: 100%;
+  }
+
+  .search-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-title {
+    font-size: 1.5rem;
+  }
+
+  .search-input {
+    padding: 0.8rem;
     font-size: 1rem;
   }
-  
-  button {
-    background-color: #004080;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+
+  .search-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
-  
-  button:hover {
-    background-color: #003366;
+
+  .logo-image {
+    max-width: 100px; /* Adjusted for smaller screens */
   }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  li:last-child {
-    border-bottom: none;
-  }
-  
+}

@@ -1,23 +1,146 @@
-nav {
-    background-color: #004080;
-    padding: 1rem;
-    color: black;
+/* General Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #004080;
+  color: white;
+  box-sizing: border-box; /* Prevent layout overflow */
+}
+
+.navbar-left {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.navbar-right {
+  position: relative;
+}
+
+.login-button,
+.user-button {
+  background-color: white;
+  color: #004080;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.login-button:hover,
+.user-button:hover {
+  background-color: #f1f1f1;
+}
+
+.user-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  background-color: white;
+  color: #004080;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f8f8;
+}
+
+.user-button::after {
+  content: "▼";
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.user-button:hover::after {
+  content: "▲";
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+    flex-wrap: nowrap;
   }
-  
-  ul {
+
+  .nav-link {
+    font-size: 1rem; /* Reduce font size */
+  }
+
+  .navbar-left {
+    flex: 1; /* Ensure left and right sides are spaced evenly */
+  }
+
+  .navbar-right {
+    flex: 1;
     display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    justify-content: flex-end;
   }
-  
-  li a {
-    color: black;
-    text-decoration: none;
+
+  .login-button,
+  .user-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem; /* Smaller button text */
   }
-  
-  li a:hover {
-    text-decoration: underline;
+
+  .dropdown-item {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
   }
-  
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .login-button,
+  .user-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .dropdown-item {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .user-button::after {
+    font-size: 0.7rem;
+  }
+}

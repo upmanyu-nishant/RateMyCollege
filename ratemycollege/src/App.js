@@ -1,27 +1,56 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import Dashboard from './pages/Dashboard';
 import UniversityProfile from './pages/UniveristyProfile';
-import CourseProfile from './pages/CourseProfile';
+import UserPage from './pages/UserPage';
 import ProfessorProfile from './pages/ProfessorProfile';
+import ResultsPage from './pages/ResultsPage';
+import ComparePage from './pages/ComparePage';  
+import LoginPage from './pages/LoginPage';
+import RatingsPage from './pages/RatingsPage';
+
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const hideNavbar = location.pathname === '/login'; // Hide Navbar only for the login page
+
+  return (
+    <>
+      {!hideNavbar && <Navbar />}
+      {children}
+    </>
+  );
+};
+
 const App = () => {
   return (
- 
     <Router>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/university/:id" element={<UniversityProfile />} />
-        <Route path="/course/:id" element={<CourseProfile />} />
-        <Route path="/professor/:id" element={<ProfessorProfile />} />
+        {/* Login Page */}
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* Pages with Navbar */}
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/" element={<SearchPage />} />
+                <Route path="/results" element={<ResultsPage />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/university/:id" element={<UniversityProfile />} />
+                <Route path="/compare" element={<ComparePage />} />
+                <Route path="/user/profile" element={<UserPage />} />
+                <Route path="/user/ratings" element={<RatingsPage />} />
+
+                <Route path="/professor/:id" element={<ProfessorProfile />} />
+              </Routes>
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
-    
   );
 };
 
