@@ -2,7 +2,7 @@ import axios from 'axios';
 // Base URLs
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-console.log(BASE_URL);
+
 // **Helper function for handling errors**
 const handleApiError = (error, message) => {
   console.error(`${message}:`, error);
@@ -70,7 +70,6 @@ export const searchColleges = async (name = '', location = '') => {
         },
       }
     );
-    console.log("response.data",response.data);
     return response.data;
   } catch (error) {
     return handleApiError(error, 'Error searching colleges');
