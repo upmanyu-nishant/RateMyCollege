@@ -15,7 +15,6 @@ const ResultsPage = () => {
       navigate('/'); // Redirect if no results
     }
   }, [results, navigate]);
-console.log(results)
   if (!results.length) {
     return (
       <div className="results-page">

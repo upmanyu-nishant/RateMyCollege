@@ -5,7 +5,6 @@ import SearchPage from './pages/SearchPage';
 import Dashboard from './pages/Dashboard';
 import UniversityProfile from './pages/UniveristyProfile';
 import UserPage from './pages/UserPage';
-import ProfessorProfile from './pages/ProfessorProfile';
 import ResultsPage from './pages/ResultsPage';
 import ComparePage from './pages/ComparePage';  
 import LoginPage from './pages/LoginPage';
@@ -43,8 +42,6 @@ const App = () => {
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/user/profile" element={<UserPage />} />
                 <Route path="/user/ratings" element={<RatingsPage />} />
-
-                <Route path="/professor/:id" element={<ProfessorProfile />} />
               </Routes>
             </Layout>
           }

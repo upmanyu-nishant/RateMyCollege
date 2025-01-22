@@ -61,7 +61,6 @@ const SearchPage = () => {
 
       localStorage.setItem('searchResults', JSON.stringify(results));
       setIsLoading(false);
-      console.log(results);
       navigate('/results', { state: { results } });
     } catch (err) {
       setError('Something went wrong while fetching results.');

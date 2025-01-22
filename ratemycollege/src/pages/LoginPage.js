@@ -17,8 +17,6 @@ const LoginPage = () => {
     }
 
     const decodedToken = jwtDecode(credentialResponse.credential);
-    console.log('Decoded Token:', decodedToken);
-
     const userPayload = {
       email: decodedToken.email,
       googleSubId: decodedToken.sub,
