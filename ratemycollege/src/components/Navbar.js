@@ -16,7 +16,7 @@ const Navbar = () => {
     localStorage.removeItem('user');
     setUser(null);
     setDropdownOpen(false);
-    navigate('/');
+    navigate('/search');
     
   };
 
@@ -31,11 +31,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <Link to="/" className="nav-link">
+        <Link to="/search" className="nav-link">
           Search
         </Link>
         <Link to="/compare" className="nav-link">
           Compare
+        </Link>
+        <Link to="/about" className="nav-link">
+        About
         </Link>
       </div>
       <div className="navbar-right">

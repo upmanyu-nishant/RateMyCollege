@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../styles/ReviewForm.css';
 import RatingBar from './RatingBar';
 import { submitReview } from '../services/api'; // Import the API function
+import { useNavigate } from 'react-router-dom'; // For navigation to login
 
 const ReviewForm = ({ universityId, onClose }) => {
   const categories = [
     'reputation',
-    'locationRating',
+    'location Rating',
     'opportunities',
     'facilities',
     'internet',
@@ -21,14 +22,20 @@ const ReviewForm = ({ universityId, onClose }) => {
   const [emailId, setEmail] = useState(''); // For user email
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-  // Load the user's email ID from localStorage on component mount
+  // Check if the user is logged in
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.email) {
       setEmail(user.email);
+    } else {
+      setErrorMessage('You must be logged in to give a review.');
+      setTimeout(() => {
+        navigate('/login'); // Redirect to the login page after showing the message
+      }, 5000); // Show the message for 3 seconds before redirecting
     }
-  }, []);
+  }, [navigate]);
 
   const handleRatingChange = (category, value) => {
     setRatings((prevRatings) => ({

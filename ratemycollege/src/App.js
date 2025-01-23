@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SearchPage from './pages/SearchPage';
-import Dashboard from './pages/Dashboard';
 import UniversityProfile from './pages/UniveristyProfile';
 import UserPage from './pages/UserPage';
 import ResultsPage from './pages/ResultsPage';
@@ -10,6 +9,8 @@ import ComparePage from './pages/ComparePage';
 import LoginPage from './pages/LoginPage';
 import RatingsPage from './pages/RatingsPage';
 import AddCollegePage from './pages/AddCollegePage';
+import LandingPage from './pages/LandingPage';
+import AboutPage from './pages/AboutPage';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -36,10 +37,12 @@ const App = () => {
           element={
             <Layout>
               <Routes>
-                <Route path="/" element={<SearchPage />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/about" element={<AboutPage />} />
+
+                <Route path="/search" element={<SearchPage />} />
                 <Route path="/add/college" element={<AddCollegePage />} />
                 <Route path="/results" element={<ResultsPage />} />
-                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/university/:id" element={<UniversityProfile />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/user/profile" element={<UserPage />} />

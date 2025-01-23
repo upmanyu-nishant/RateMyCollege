@@ -12,7 +12,7 @@ const ResultsPage = () => {
 
   useEffect(() => {
     if (!results.length) {
-      navigate('/'); // Redirect if no results
+      navigate('/search'); // Redirect if no results
     }
   }, [results, navigate]);
 

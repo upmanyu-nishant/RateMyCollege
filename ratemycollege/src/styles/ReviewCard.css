@@ -1,5 +1,5 @@
 .review-card {
-  background-color: #f8f9fa;
+  background-color: #ebeff3;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -80,7 +80,7 @@
 }
 
 /* Footer styles */
-.footer {
+.footer-card {
   display: flex;
   justify-content: space-between;
   align-items: center;

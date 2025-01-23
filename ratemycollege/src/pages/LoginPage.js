@@ -35,7 +35,7 @@ const LoginPage = () => {
       );
 
       // Redirect after successful authentication
-      navigate('/');
+      navigate('/search');
     } catch (error) {
       console.error('Authentication failed:', error);
       alert('Authentication failed. Please try again.');

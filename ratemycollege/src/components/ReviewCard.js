@@ -108,7 +108,7 @@ const ReviewCard = ({ review }) => {
         </div>
       </div>
 
-      <div className="footer">
+      <div className="footer-card">
         <span className="review-date">{formattedDate}</span>
       </div>
     </div>

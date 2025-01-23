@@ -1,0 +1,40 @@
+/* Footer Component Styles */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .footer-content {
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    max-width: 150px;
+    margin: 0 auto 1rem; /* Center the logo and add spacing */
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+  
+  .footer p {
+    font-size: 1rem; /* Slightly larger text size for readability */
+    margin: 0.5rem 0;
+    color: #f1f1f1; /* Light white for readability */
+  }
+  
+  .footer a {
+    color: #facc15; /* Highlight links with gold */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: #eab308; /* Slightly darker gold on hover */
+  }
+  

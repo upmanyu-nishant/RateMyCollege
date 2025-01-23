@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCollegeById, fetchReviewsByCollegeId } from '../services/api'; // Import API functions
 import UniversityHeader from '../components/UniversityHeader';
@@ -44,9 +44,11 @@ const UniversityProfile = () => {
   const [visibleReviewsCount, setVisibleReviewsCount] = useState(4);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showAllRatings, setShowAllRatings] = useState(false);
-  const [thankYouMessageVisible, setThankYouMessageVisible] = useState(false); // New state
+  const [thankYouMessageVisible, setThankYouMessageVisible] = useState(false);
 
-  // **Fetch university data and reviews**
+  const reviewFormRef = useRef(null); // Ref for the review form
+
+  // Fetch university data and reviews
   useEffect(() => {
     const getUniversityData = async () => {
       try {
@@ -62,13 +64,16 @@ const UniversityProfile = () => {
     getUniversityData();
   }, [id]);
 
+  const handleRateClick = () => {
+    setShowReviewForm(true);
+    // Scroll to the review form
+    setTimeout(() => {
+      reviewFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // Delay to ensure form is visible when scrolling
+  };
 
   const handleSeeMore = () => {
     setVisibleReviewsCount((prevCount) => prevCount + 4);
-  };
-
-  const handleRateClick = () => {
-    setShowReviewForm(true);
   };
 
   const toggleRatingsView = () => {
@@ -179,15 +184,16 @@ const UniversityProfile = () => {
         )}
 
         {showReviewForm && (
-          <ReviewForm
-            universityId={university.id}
-            onClose={() => {
-              setShowReviewForm(false); // Hide the form
-              setThankYouMessageVisible(true); // Show thank-you message
-              setTimeout(() => setThankYouMessageVisible(false), 4000); // Hide message after 4 seconds
-            }}
-            
-          />
+          <div ref={reviewFormRef}>
+            <ReviewForm
+              universityId={university.id}
+              onClose={() => {
+                setShowReviewForm(false);
+                setThankYouMessageVisible(true);
+                setTimeout(() => setThankYouMessageVisible(false), 4000);
+              }}
+            />
+          </div>
         )}
 
         <h2>Reviews</h2>
