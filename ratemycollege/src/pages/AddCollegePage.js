@@ -55,7 +55,7 @@ const AddCollegePage = () => {
       </form>
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <button onClick={() => navigate('/')} className="back-button">
+      <button onClick={() => navigate('/search')} className="back-button">
         Go Back to Search
       </button>
     </div>
