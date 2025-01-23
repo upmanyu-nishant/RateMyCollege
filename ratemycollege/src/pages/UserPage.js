@@ -116,50 +116,6 @@ const UserPage = () => {
             <label>Email</label>
             <span>{formData.email || 'Not Provided'}</span>
           </div>
-          <div className="user-field">
-            <label>School</label>
-            {isEditing ? (
-              <input
-                type="text"
-                name="college"
-                value={formData.college}
-                onChange={handleChange}
-                className="user-input"
-              />
-            ) : (
-              <span>{formData.college || 'Not Provided'}</span>
-            )}
-          </div>
-          <div className="user-field">
-            <label>Field of Study</label>
-            {isEditing ? (
-              <input
-                type="text"
-                name="fieldOfStudy"
-                value={formData.fieldOfStudy}
-                onChange={handleChange}
-                className="user-input"
-              />
-            ) : (
-              <span>{formData.fieldOfStudy || 'Not Provided'}</span>
-            )}
-          </div>
-          <div className="user-field">
-            <label>Expected Year of Graduation</label>
-            {isEditing ? (
-              <input
-                type="number"
-                name="graduationYear"
-                value={formData.graduationYear}
-                onChange={handleChange}
-                className="user-input"
-                min="2023"
-                max="2035"
-              />
-            ) : (
-              <span>{formData.graduationYear || 'Not Provided'}</span>
-            )}
-          </div>
         </div>
 
         <div className="user-actions">
