@@ -21,8 +21,9 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-// eslint-disable-next-line
-     const fetchSuggestions = useCallback(
+
+  // eslint-disable-next-line
+  const fetchSuggestions = useCallback(
     debounce(async (query, type) => {
       if (query.length > 1) {
         try {
@@ -41,9 +42,8 @@ const SearchPage = () => {
         if (type === 'location') setLocationSuggestions([]);
       }
     }, 300),
-    [] // The dependency array is empty because debounce and searchColleges are static
+    []
   );
-  
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -78,7 +78,6 @@ const SearchPage = () => {
         <div className="search-content">
           <h1 className="search-title">Search for Colleges by Name or Location</h1>
           <form onSubmit={handleSearch} className="search-form">
-            {/* Name Input */}
             <div className="input-wrapper">
               <input
                 className="search-input"
@@ -107,8 +106,6 @@ const SearchPage = () => {
                 </div>
               )}
             </div>
-
-            {/* Location Input */}
             <div className="input-wrapper">
               <input
                 className="search-input"
@@ -142,7 +139,20 @@ const SearchPage = () => {
               {isLoading ? 'Searching...' : 'Search'}
             </button>
           </form>
-          {error && <p className="error-message">{error}</p>}
+          {error && (
+            <div className="error-section">
+              <p className="error-message">{error}</p>
+              <p className="add-college-link">
+                <span>Did not find your college? </span>
+                <button
+                  className="add-college-button"
+                  onClick={() => navigate('/add/college')}
+                >
+                  Add it here
+                </button>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

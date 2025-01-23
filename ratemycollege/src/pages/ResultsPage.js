@@ -15,6 +15,7 @@ const ResultsPage = () => {
       navigate('/'); // Redirect if no results
     }
   }, [results, navigate]);
+
   if (!results.length) {
     return (
       <div className="results-page">
@@ -42,6 +43,12 @@ const ResultsPage = () => {
             </div>
           </Link>
         ))}
+      </div>
+      <div className="add-college-option">
+        <p>Don't see your college?</p>
+        <Link to="/add/college" className="add-college-link">
+          Add it here
+        </Link>
       </div>
     </div>
   );

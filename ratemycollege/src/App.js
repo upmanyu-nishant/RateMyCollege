@@ -9,6 +9,7 @@ import ResultsPage from './pages/ResultsPage';
 import ComparePage from './pages/ComparePage';  
 import LoginPage from './pages/LoginPage';
 import RatingsPage from './pages/RatingsPage';
+import AddCollegePage from './pages/AddCollegePage';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const App = () => {
             <Layout>
               <Routes>
                 <Route path="/" element={<SearchPage />} />
+                <Route path="/add/college" element={<AddCollegePage />} />
                 <Route path="/results" element={<ResultsPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/university/:id" element={<UniversityProfile />} />

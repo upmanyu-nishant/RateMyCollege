@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import {  useLocation } from 'react-router-dom';
 import { fetchCollegeById, searchColleges } from '../services/api'; // Use searchColleges for search
 import '../styles/ComparePage.css';
 
@@ -36,7 +36,7 @@ const ComparePage = () => {
   const [searchQuery2, setSearchQuery2] = useState('');
   const [suggestions1, setSuggestions1] = useState([]);
   const [suggestions2, setSuggestions2] = useState([]);
-
+// eslint-disable-next-line
   const fetchSuggestions = useCallback(
     debounce(async (query, setSuggestions) => {
       if (query.length > 1) {

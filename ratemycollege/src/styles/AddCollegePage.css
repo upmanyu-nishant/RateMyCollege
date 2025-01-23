@@ -1,0 +1,115 @@
+/* AddCollegePage.css */
+
+.add-college-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 2rem;
+  }
+  
+  .add-college-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #004080;
+  }
+  
+  .add-college-form {
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .add-college-form input,
+  .add-college-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  .add-college-form textarea {
+    resize: none;
+  }
+  
+  .add-college-form input:focus,
+  .add-college-form textarea:focus {
+    outline: none;
+    border-color: #004080;
+    box-shadow: 0 0 4px rgba(0, 64, 128, 0.5);
+  }
+  
+  .submit-button {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #003366;
+  }
+  
+  .success-message {
+    color: #22c55e; /* Green for success */
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .error-message {
+    color: #f87171; /* Red for error */
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .back-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #bbb;
+  }
+  
+  @media (max-width: 768px) {
+    .add-college-form {
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  
+    .add-college-title {
+      font-size: 1.8rem;
+    }
+  
+    .submit-button,
+    .back-button {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+  
