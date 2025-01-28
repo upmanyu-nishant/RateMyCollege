@@ -12,14 +12,12 @@ const handleApiError = (error, message) => {
 // **Helper function to get access token**
 const getAuthToken = () => {
   const tokens = JSON.parse(localStorage.getItem('tokens'));
-  console.log( "getTokens", tokens); // Separate storage for tokens
   return tokens?.accessToken || null;
 };
 
 // **Helper function to set tokens**
 const setAuthTokens = ({ accessToken, refreshToken }) => {
   const tokens = { accessToken, refreshToken };
-  console.log('Setting tokens:', tokens);
   localStorage.setItem('tokens', JSON.stringify(tokens)); // Store tokens separately
 };
 
@@ -33,7 +31,6 @@ const refreshAccessToken = async () => {
       });
 
       const { accessToken, refreshToken } = response.data;
-      console.log('Refreshed tokens:', { accessToken, refreshToken });
       // Update both tokens in local storage
       setAuthTokens({ accessToken, refreshToken });
 
