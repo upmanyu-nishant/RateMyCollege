@@ -54,8 +54,14 @@ const UniversityProfile = () => {
       try {
         const universityData = await fetchCollegeById(id); // Fetch university details
         const reviewsData = await fetchReviewsByCollegeId(id); // Fetch reviews for the university
+
+        // Sort reviews by date (latest first)
+        const sortedReviews = reviewsData.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
         setUniversity(universityData);
-        setReviews(reviewsData);
+        setReviews(sortedReviews);
       } catch (error) {
         setUniversity(null);
       }

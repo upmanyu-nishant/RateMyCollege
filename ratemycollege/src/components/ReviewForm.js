@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'; // For navigation to login
 const ReviewForm = ({ universityId, onClose }) => {
   const categories = [
     'reputation',
-    'location Rating',
+    'locationRating',
     'opportunities',
     'facilities',
     'internet',
@@ -22,6 +22,7 @@ const ReviewForm = ({ universityId, onClose }) => {
   const [emailId, setEmail] = useState(''); // For user email
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track submission
   const navigate = useNavigate();
 
   // Check if the user is logged in
@@ -46,10 +47,18 @@ const ReviewForm = ({ universityId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if already submitting
+    if (isSubmitting) return;
+
+    // Set loading state to true
+    setIsSubmitting(true);
+
     // Check for missing ratings
     const missingRatings = categories.filter((category) => !(ratings[category]));
     if (missingRatings.length > 0) {
       setErrorMessage(`Please provide a rating for all categories.`);
+      setIsSubmitting(false);
       return;
     }
 
@@ -79,6 +88,9 @@ const ReviewForm = ({ universityId, onClose }) => {
     } catch (error) {
       setErrorMessage('Failed to submit review. Please try again.');
       setSuccessMessage('');
+    } finally {
+      // Reset loading state
+      setIsSubmitting(false);
     }
   };
 
@@ -121,8 +133,8 @@ const ReviewForm = ({ universityId, onClose }) => {
         placeholder="Add any additional comments..."
         className="comment-box"
       />
-      <button type="submit" className="submit-button">
-        Submit
+      <button type="submit" className="submit-button" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
     </form>
   );

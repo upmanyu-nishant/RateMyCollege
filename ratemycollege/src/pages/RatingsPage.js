@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchReviewsByEmail, deleteReview, updateReview, fetchCollegeById } from '../services/api';
+import { fetchReviewsByEmail, deleteReview, fetchCollegeById } from '../services/api';
 import ReviewCard from '../components/ReviewCard';
-import ReviewForm from '../components/ReviewForm';
 import ConfirmModal from '../components/ConfirmModal';
 import '../styles/RatingsPage.css';
 
@@ -10,7 +9,6 @@ const RatingsPage = () => {
   const [user, setUser] = useState(null);
   const [ratings, setRatings] = useState([]);
   const [collegeDetails, setCollegeDetails] = useState({});
-  const [editMode, setEditMode] = useState({});
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [ratingToDelete, setRatingToDelete] = useState(null);
   const navigate = useNavigate();
@@ -21,9 +19,13 @@ const RatingsPage = () => {
 
     if (storedUser?.email) {
       fetchReviewsByEmail(storedUser.email).then((fetchedRatings) => {
-        setRatings(fetchedRatings);
+        // Sort ratings by date (latest first)
+        const sortedRatings = fetchedRatings.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+        setRatings(sortedRatings);
 
-        fetchedRatings.forEach(async (rating) => {
+        sortedRatings.forEach(async (rating) => {
           const college = await fetchCollegeById(rating.collegeId);
           setCollegeDetails((prev) => ({ ...prev, [rating.collegeId]: college }));
         });
@@ -33,24 +35,6 @@ const RatingsPage = () => {
 
   const handleNavigateToProfile = () => {
     navigate('/user/profile');
-  };
-
-  const handleEditClick = (ratingId) => {
-    setEditMode((prev) => ({ ...prev, [ratingId]: true }));
-  };
-
-  const handleCancelEdit = (ratingId) => {
-    setEditMode((prev) => ({ ...prev, [ratingId]: false }));
-  };
-
-  const handleSaveRating = async (ratingId, updatedReview) => {
-    await updateReview(ratingId, updatedReview);
-    setRatings((prev) =>
-      prev.map((rating) =>
-        rating.id === ratingId ? { ...rating, ...updatedReview } : rating
-      )
-    );
-    setEditMode((prev) => ({ ...prev, [ratingId]: false }));
   };
 
   const handleDeleteRating = (ratingId) => {
@@ -98,41 +82,15 @@ const RatingsPage = () => {
                   </span>
                 </h3>
               </div>
-              {!editMode[rating.id] ? (
-                <>
-                  <ReviewCard review={rating} />
-                  <div className="ratings-page-rating-actions">
-                    <button
-                      className="ratings-page-edit-rating-button"
-                      onClick={() => handleEditClick(rating.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="ratings-page-delete-rating-button"
-                      onClick={() => handleDeleteRating(rating.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="ratings-page-edit-form-wrapper">
-                  <ReviewForm
-                    universityId={rating.collegeId}
-                    defaultValues={rating}
-                    onReviewSubmit={(updatedReview) => handleSaveRating(rating.id, updatedReview)}
-                  />
-                  <div className="ratings-page-cancel-edit-wrapper">
-                    <button
-                      className="ratings-page-cancel-edit-button"
-                      onClick={() => handleCancelEdit(rating.id)}
-                    >
-                      ✖ Cancel Edit
-                    </button>
-                  </div>
-                </div>
-              )}
+              <ReviewCard review={rating} />
+              <div className="ratings-page-rating-actions">
+                <button
+                  className="ratings-page-delete-rating-button"
+                  onClick={() => handleDeleteRating(rating.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}
